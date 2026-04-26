@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =====================================================
+// USER (Admin)
+// =====================================================
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Hashed password
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// =====================================================
+// CATEGORY
+// =====================================================
+model Category {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  order     Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  // Relations
+  menuItems MenuItem[]
+
+  @@map("categories")
+}
+
+// =====================================================
+// MENU ITEM
+// =====================================================
+model MenuItem {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Decimal  @db.Decimal(10, 2)
+  categoryId  String
+  imageUrl    String   // Path to uploaded image
+  isVeg       Boolean  @default(true)
+  isSpicy     Boolean  @default(false)
+  isAvailable Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+  @@map("menu_items")
+}
+
+// =====================================================
+// RESERVATION
+// =====================================================
+model Reservation {
+  id                String   @id @default(cuid())
+  guestName         String
+  guestEmail        String
+  guestPhone        String
+  partySize         Int
+  reservationDate   DateTime // Date and time of reservation
+  specialRequests   String?  // Optional notes
+  status            ReservationStatus @default(PENDING)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([reservationDate])
+  @@index([status])
+  @@map("reservations")
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+// =====================================================
+// GALLERY IMAGE
+// =====================================================
+model GalleryImage {
+  id           String   @id @default(cuid())
+  imageUrl     String   // Path to uploaded image
+  caption      String?  // Optional description
+  isFeatured   Boolean  @default(false)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isFeatured])
+  @@map("gallery_images")
+}
+
+// =====================================================
+// RESTAURANT INFO (Single row)
+// =====================================================
+model RestaurantInfo {
+  id           String   @id @default(cuid())
+  name         String   @default("La Bistro")
+  description  String   @default("")
+  address      String   @default("")
+  phone        String   @default("")
+  email        String   @default("")
+  website      String?
+  instagram    String?
+  openingTime  String   @default("11:00")  // 24-hour format HH:mm
+  closingTime  String   @default("22:00")  // 24-hour format HH:mm
+  hoursJson    Json     @default("{}")     // { "monday": { "open": "11:00", "close": "22:00" }, ... }
+  updatedAt    DateTime @updatedAt
+
+  @@map("restaurant_info")
+}
