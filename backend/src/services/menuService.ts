@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../lib/prisma';
 import path from 'path';
 import fs from 'fs';
-
-const prisma = new PrismaClient();
 
 // Helper: Delete file safely
 const deleteFile = (filePath: string): void => {

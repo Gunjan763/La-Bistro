@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../lib/prisma';
 import path from 'path';
 import fs from 'fs';
-
-const prisma = new PrismaClient();
 
 // Helper: Convert string boolean to actual boolean
 const toBoolean = (value: any): boolean => {
