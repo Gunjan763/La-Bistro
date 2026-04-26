@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../hooks/useRedux';
 import { restaurantService, reservationService } from '../../services/api';
-import type { DashboardStats, Reservation } from '../../types';
+import type { DashboardStats } from '../../types';
 import { 
   Users, 
   Utensils, 
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        {statCards.map((card, i) => (
+        {statCards.map((card) => (
           <div 
             key={card.label} 
             className={`p-6 rounded-2xl border ${card.color} backdrop-blur-sm transition-all hover:scale-[1.02] duration-300`}

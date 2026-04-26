@@ -95,11 +95,10 @@ export const updateRestaurantInfo = async (
   }
 
   // Validate time format (HH:mm)
-  const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-  if (openingTime && !timeRegex.test(openingTime)) {
+  if (openingTime && !isValidTime(openingTime)) {
     throw new Error('Invalid opening time format. Use HH:mm (24-hour)');
   }
-  if (closingTime && !timeRegex.test(closingTime)) {
+  if (closingTime && !isValidTime(closingTime)) {
     throw new Error('Invalid closing time format. Use HH:mm (24-hour)');
   }
 

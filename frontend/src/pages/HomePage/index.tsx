@@ -1,7 +1,6 @@
 import HeroSection from './HeroSection';
 import FeaturedMenu from './FeaturedMenu';
 import AboutSection from './AboutSection';
-import GalleryPreview from './GalleryPreview';
 import OpeningHours from './OpeningHours';
 
 const HomePage = () => {

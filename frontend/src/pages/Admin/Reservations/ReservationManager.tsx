@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Check, X, Trash2, Calendar as CalendarIcon, Clock, Users } from 'lucide-react';
 import { reservationService } from '../../../services/api';
 import type { Reservation } from '../../../types';
-import Button from '../../../components/ui/Button';
 import { TableSkeleton } from '../../../components/ui/SkeletonLoader';
 import EmptyState from '../../../components/ui/EmptyState';
 import toast from 'react-hot-toast';

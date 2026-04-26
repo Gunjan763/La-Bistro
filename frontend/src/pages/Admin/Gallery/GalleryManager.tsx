@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Upload, Edit2, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { Upload, Edit2, Trash2 } from 'lucide-react';
 import { galleryService } from '../../../services/api';
 import type { GalleryImage } from '../../../types';
 import Button from '../../../components/ui/Button';
