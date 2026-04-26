@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Upload, Edit2, Trash2 } from 'lucide-react';
-import { galleryService } from '../../../services/api';
+import { galleryService, getAssetUrl } from '../../../services/api';
 import type { GalleryImage } from '../../../types';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
@@ -156,7 +156,7 @@ const GalleryManager = () => {
                 {/* Image */}
                 <div className="aspect-square bg-bg-secondary overflow-hidden">
                   <img
-                    src={image.imageUrl}
+                    src={getAssetUrl(image.imageUrl)}
                     alt={image.caption || 'Gallery Image'}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

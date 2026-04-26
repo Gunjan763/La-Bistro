@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { galleryService } from '../../services/api';
+import { galleryService, getAssetUrl } from '../../services/api';
 import type { GalleryImage } from '../../types';
 import SectionHeading from '../../components/ui/SectionHeading';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
@@ -74,7 +74,7 @@ const GalleryPreview = () => {
               >
                 <div className={`${i === 0 ? 'aspect-square' : 'aspect-square'}`}>
                   <img
-                    src={image.imageUrl.startsWith('http') ? image.imageUrl : image.imageUrl}
+                    src={getAssetUrl(image.imageUrl)}
                     alt={image.caption || 'Gallery image'}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -111,7 +111,7 @@ const GalleryPreview = () => {
             </svg>
           </button>
           <img
-            src={selectedImage.imageUrl}
+            src={getAssetUrl(selectedImage.imageUrl)}
             alt={selectedImage.caption || 'Gallery image'}
             className="max-w-full max-h-[85vh] object-contain rounded-lg animate-fade-in-up"
             onClick={(e) => e.stopPropagation()}

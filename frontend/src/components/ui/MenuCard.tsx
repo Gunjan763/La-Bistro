@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../../services/api';
 import type { MenuItem } from '../../types';
 
 interface MenuCardProps {
@@ -14,7 +15,7 @@ const MenuCard = ({ item }: MenuCardProps) => {
       <div className="relative h-48 sm:h-52 overflow-hidden bg-bg-elevated flex-shrink-0">
         {hasImage ? (
           <img
-            src={item.imageUrl}
+            src={getAssetUrl(item.imageUrl)}
             alt={item.name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
