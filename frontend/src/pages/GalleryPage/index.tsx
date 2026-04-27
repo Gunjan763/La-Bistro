@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { galleryService, getAssetUrl } from '../../services/api';
+import { galleryService } from '../../services/api';
 import type { GalleryImage } from '../../types';
 import SectionHeading from '../../components/ui/SectionHeading';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
@@ -87,7 +87,7 @@ const GalleryPage = () => {
           </button>
           <div className="max-w-5xl w-full flex flex-col items-center gap-4">
             <img
-              src={getAssetUrl(selectedImage.imageUrl)}
+              src={selectedImage.imageUrl}
               alt={selectedImage.caption || 'Gallery image'}
               className="max-w-full max-h-[80vh] object-contain rounded-lg animate-fade-in-up shadow-2xl"
               onClick={(e) => e.stopPropagation()}

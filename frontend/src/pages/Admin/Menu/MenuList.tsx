@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Image as ImageIcon, CheckCircle, XCircle } from 'lucide-react';
-import { menuService, categoryService, getAssetUrl } from '../../../services/api';
+import { menuService, categoryService } from '../../../services/api';
 import type { MenuItem, Category } from '../../../types';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
@@ -213,7 +213,7 @@ const MenuList = () => {
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-lg bg-bg-elevated overflow-hidden border border-border shrink-0">
                           {item.imageUrl ? (
-                            <img src={getAssetUrl(item.imageUrl)} alt={item.name} className="w-full h-full object-cover" />
+                            <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-text-muted">
                               <ImageIcon size={20} />

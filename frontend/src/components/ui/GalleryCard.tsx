@@ -1,4 +1,3 @@
-import { getAssetUrl } from '../../services/api';
 import type { GalleryImage } from '../../types';
 
 interface GalleryCardProps {
@@ -23,7 +22,7 @@ const GalleryCard = ({ image, onClick }: GalleryCardProps) => {
         onClick={() => onClick(image)}
       >
         <img
-          src={getAssetUrl(image.imageUrl)}
+          src={image.imageUrl.startsWith('http') ? image.imageUrl : image.imageUrl}
           alt={image.caption || 'Gallery image'}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
