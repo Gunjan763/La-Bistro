@@ -11,14 +11,30 @@ import type {
   DashboardStats,
 } from '../types';
 
+// ===== API URL Configuration =====
+// Use VITE_API_URL if defined, otherwise fallback to localhost
+const rawBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Ensure no trailing slash
+export const BASE_URL = rawBaseUrl.replace(/\/$/, '');
+export const API_URL = `${BASE_URL}/api`;
+
 // ===== Axios Instance =====
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
   timeout: 10000,
 });
+
+/**
+ * Helper to get absolute URL for assets (images)
+ */
+export const getAssetUrl = (path: string | null | undefined): string => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  return `${BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`;
+};
 
 // ===== Request Interceptor (attach token if available) =====
 api.interceptors.request.use((config) => {
