@@ -37,8 +37,23 @@ To ensure your frontend and backend communicate correctly on Render, follow thes
 
 ---
 
-## Summary of How It Works
-- **Local Dev**: Frontend uses `http://localhost:5000` (from `.env`). Backend allows `http://localhost:5173` (from `.env`).
-- **Production**: Frontend uses `https://la-bistro.onrender.com` (from Render Env). Backend allows `https://la-bistro-frontend.onrender.com` (from Render Env).
+## Troubleshooting: "Network Error" or "500 Internal Server Error"
 
-No code changes are needed when switching between environments!
+If your frontend shows but backend data doesn't load:
+
+### 1. Check the Health Endpoint
+Open `https://la-bistro.onrender.com/api/health` in your browser.
+- If it says `database: disconnected`, your `DATABASE_URL` is wrong.
+- If it doesn't load at all, your Backend service might be crashed.
+
+### 2. Common Causes for 500 Error:
+- **Database Connection**: Ensure the `DATABASE_URL` in your Backend environment variables is correct. If you are using Render PostgreSQL, use the **Internal Database URL**.
+- **Prisma Migrations**: You must run migrations on your production database. 
+  - In Render, change your **Build Command** for the backend to:
+    `npm install && npx prisma generate && npx prisma migrate deploy`
+- **CORS**: Make sure `CORS_ORIGIN` does NOT have a trailing slash.
+  - Correct: `https://la-bistro-frontend.onrender.com`
+  - Incorrect: `https://la-bistro-frontend.onrender.com/`
+
+### 3. Check Render Logs
+Go to your **Backend Service** -> **Logs** in Render. Look for lines starting with `Error:` or `PrismaClientInitializationError`.

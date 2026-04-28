@@ -70,8 +70,24 @@ app.use('/api/content', contentRoutes);
 app.use('/api/restaurant', restaurantRoutes);
 
 // Health check
-app.get('/api/health', (_req: Request, res: Response) => {
-  res.status(200).json({ status: 'ok' });
+app.get('/api/health', async (_req: Request, res: Response) => {
+  try {
+    // Check DB connection
+    const prisma = (await import('./lib/prisma')).default;
+    await prisma.$queryRaw`SELECT 1`;
+    res.status(200).json({ 
+      status: 'ok', 
+      database: 'connected',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Health check failed:', error);
+    res.status(500).json({ 
+      status: 'error', 
+      database: 'disconnected',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
 });
 
 // 404 handler
